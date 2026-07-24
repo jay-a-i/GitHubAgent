@@ -4,6 +4,9 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, END
 from langgraph.types import RetryPolicy
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class AgentState(TypedDict):
     code_diff: str               # The raw code changes pulled from GitHub
