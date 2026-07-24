@@ -32,8 +32,8 @@ def analyze_pr_diff(self, pr_data: dict):
     
     try:
         headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-        with httpx.Client() as client:
-            response = client.get(diff_url, headers=headers, timeout=30.0)
+        with httpx.Client(follow_redirects=True, timeout=30.0) as client:
+            response = client.get(diff_url, headers=headers)
             if response.status_code != 200:
                 raise Exception(f"Failed to fetch diff from GitHub: {response.text}")
             code_diff = response.text
