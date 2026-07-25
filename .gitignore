@@ -6,6 +6,7 @@ dist/
 wheels/
 *.egg-info
 start.txt
+run_worker.ps1
 # Virtual environments
 .venv
 # Secrets
