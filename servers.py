@@ -3,7 +3,7 @@ import hmac
 import hashlib
 from fastapi import FastAPI, Request, HTTPException, Header
 from fastapi.responses import JSONResponse
-from tasks import analyze_pr_diff
+from tasks import analyze_pr_diff, analyze_push_diff
 
 
 app = FastAPI(title="AI Code Reviewer Webhook Server")
@@ -33,4 +33,10 @@ async def github_webhook_listener(request: Request, x_hub_signature_256: str = H
                 status_code=202,
                 content={"status": "Enqueued in Celery worker stream", "action": action}
             )
+        
+    elif event_type == "push":
+        analyze_push_diff.delay(payload)
+        return JSONResponse(status_code=202, content={"status": "Enqueued", "event": "push"})
+
+
     return {"status": "Ignored event stream", "event": event_type}
