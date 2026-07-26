@@ -16,10 +16,10 @@ class AgentState(TypedDict):
     final_report: str           # The compiled, clean report for the PR comment
 
 llm = ChatOpenAI(
-    model="nvidia/nemotron-3-ultra-550b-a55b:free",
+    model="pocohere/north-mini-code:free",
     api_key=os.getenv("OPENROUTER_API_KEY"), 
     base_url="https://openrouter.ai/api/v1",
-    streaming=False
+    streaming=False,
 )
 
 def security_agent(state: AgentState) -> Dict[str, Any]:

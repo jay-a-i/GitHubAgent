@@ -104,9 +104,8 @@ def analyze_push_diff(self, push_data: dict):
         commit = repo.get_commit(after_sha)
         commit.create_comment(final_markdown_report)
 
-        return f"Successfully processed push {before_sha[:7]}..{after_sha[:7]} on {repo_full_name}\n[Agent Push Repost] {final_markdown_report}"
+        return f"Successfully processed push {before_sha[:7]}..{after_sha[:7]} on {repo_full_name}"
 
     except Exception as exc:
         print(f"[Worker Error] Encountered exception: {exc}. Retrying task...")
         raise self.retry(exc=exc)
-    
